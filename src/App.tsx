@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Form from './components/form/Form';
+import FormWithProvider from './components/form/FormWithProvider';
 
 function App() {
-  return <Form />;
+  return <FormWithProvider />;
 }
 
 export default App;

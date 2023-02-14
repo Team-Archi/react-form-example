@@ -1,17 +1,9 @@
-import { useForm, useFieldArray } from 'react-hook-form';
+import React from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { UserInfoForm } from '../Form';
 
-interface UserInfo {
-  name: string;
-  phone: string;
-}
-
-export interface UserInfoForm {
-  users: Array<UserInfo>;
-}
-
-/* FormProvider 사용 X */
-export default function Form() {
-  const { register, control, handleSubmit } = useForm<UserInfoForm>();
+export default function FieldArray() {
+  const { control, register } = useFormContext<UserInfoForm>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'users',
@@ -19,12 +11,9 @@ export default function Form() {
 
   const onRemoveClick = (index: number) => () => remove(index);
   const onAppendClick = () => append({ name: '이름', phone: '010-0000-0000' });
-  const onSubmit = (data: UserInfoForm) => {
-    console.log(data.users);
-  };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <div>
       <button type="button" onClick={onAppendClick}>
         추가
       </button>
@@ -37,7 +26,6 @@ export default function Form() {
           </button>
         </div>
       ))}
-      <button type="submit">확인</button>
-    </form>
+    </div>
   );
 }
